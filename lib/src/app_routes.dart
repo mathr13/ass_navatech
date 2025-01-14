@@ -6,7 +6,7 @@ class AppRoutes extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(page: NVHomeRoute.page)
+    AutoRoute(page: NVHomeRoute.page, initial: true)
   ];
 
 }

@@ -3,7 +3,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../injections.dart';
 import '../../bloc/bloc.dart';
+import '../widgets/album_widget.dart';
 
 @RoutePage()
 class NVHomeScreen extends StatelessWidget {
@@ -15,13 +17,16 @@ class NVHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<NVHomeBloc, NVHomeState>(
-        builder: (context, state) {
-          if(state is NVHomeLoading) return _Loading();
-          if(state is NVHomeError) return _Error();
-          if(state is NVHomeSuccess) return _Success(library: state.library);
-          return _None();
-        },
+      body: BlocProvider<NVHomeBloc>(
+        create: (context) => injector()..add(NVGetAlbums()),
+        child: BlocBuilder<NVHomeBloc, NVHomeState>(
+          builder: (context, state) {
+            if(state is NVHomeLoading) return _Loading();
+            if(state is NVHomeError) return _Error();
+            if(state is NVHomeSuccess) return _Success(albums: state.library.albums);
+            return _None();
+          },
+        ),
       ),
     );
   }
@@ -61,13 +66,27 @@ class _Error extends StatelessWidget {
 
 class _Success extends StatelessWidget {
 
-  final NVAlbumsListEntity library;
+  final List<NVAlbumEntity> albums;
 
-  const _Success({required this.library});
+  const _Success({required this.albums});
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text(library.albums.length.toString()));
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Center(
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            final album = albums[index%albums.length];
+            injector<NVHomeBloc>().add(NVGetPhotos(albumId: album.id));
+            return NVAlbumWidget(
+              album: album,
+              photos: [],
+            );
+          },
+        )
+      ),
+    );
   }
 
 }
