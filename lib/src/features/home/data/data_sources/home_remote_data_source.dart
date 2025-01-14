@@ -21,7 +21,7 @@ class HomeRemoteDataSource implements HomeDataSourceInterface {
     final response = await dio.get(uri.toString());
     try {
       return NVAlbumsListModel(
-        albums: (response.data as List).map(
+        albumsList: (response.data as List).map(
           (e) => NVAlbumModel.fromJson(e)
         ).toList()
       );
@@ -41,7 +41,7 @@ class HomeRemoteDataSource implements HomeDataSourceInterface {
     final response = await dio.get(uri.toString());
     try {
       return NVPhotosListModel(
-        photos: (response.data as List).map(
+        photosList: (response.data as List).map(
           (e) => NVPhotoModel.fromJson(e)
         ).toList()
       );

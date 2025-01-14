@@ -8,12 +8,12 @@ part of 'albums_list_model.dart';
 
 NVAlbumsListModel _$NVAlbumsListModelFromJson(Map<String, dynamic> json) =>
     NVAlbumsListModel(
-      albums: (json['albums'] as List<dynamic>)
+      albumsList: (json['albumsList'] as List<dynamic>)
           .map((e) => NVAlbumModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$NVAlbumsListModelToJson(NVAlbumsListModel instance) =>
     <String, dynamic>{
-      'albums': instance.albums,
+      'albumsList': instance.albumsList,
     };

@@ -8,7 +8,9 @@ part 'albums_list_model.g.dart';
 @JsonSerializable()
 class NVAlbumsListModel extends NVAlbumsListEntity {
 
-  const NVAlbumsListModel({required super.albums});
+  final List<NVAlbumModel> albumsList;
+
+  const NVAlbumsListModel({required this.albumsList}) : super(albums: albumsList);
 
   factory NVAlbumsListModel.fromJson(Map<String, dynamic> json) {
     return _$NVAlbumsListModelFromJson(json);

@@ -8,12 +8,12 @@ part of 'photos_list_model.dart';
 
 NVPhotosListModel _$NVPhotosListModelFromJson(Map<String, dynamic> json) =>
     NVPhotosListModel(
-      photos: (json['photos'] as List<dynamic>)
+      photosList: (json['photosList'] as List<dynamic>)
           .map((e) => NVPhotoModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$NVPhotosListModelToJson(NVPhotosListModel instance) =>
     <String, dynamic>{
-      'photos': instance.photos,
+      'photosList': instance.photosList,
     };

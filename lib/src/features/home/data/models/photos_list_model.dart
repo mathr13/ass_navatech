@@ -8,7 +8,9 @@ part 'photos_list_model.g.dart';
 @JsonSerializable()
 class NVPhotosListModel extends NVPhotosListEntity {
 
-  const NVPhotosListModel({required super.photos});
+  final List<NVPhotoModel> photosList;
+
+  const NVPhotosListModel({required this.photosList}) : super(photos: photosList);
 
   factory NVPhotosListModel.fromJson(Map<String, dynamic> json) {
     return _$NVPhotosListModelFromJson(json);
