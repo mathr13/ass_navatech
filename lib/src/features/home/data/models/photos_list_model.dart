@@ -1,15 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../domain/domain.dart';
 import 'photo_model.dart';
 
 part 'photos_list_model.g.dart';
 
 @JsonSerializable()
-class NVPhotosListModel {
+class NVPhotosListModel extends NVPhotosListEntity {
 
-  final List<NVPhotoModel> photos;
-
-  const NVPhotosListModel({required this.photos});
+  const NVPhotosListModel({required super.photos});
 
   factory NVPhotosListModel.fromJson(Map<String, dynamic> json) {
     return _$NVPhotosListModelFromJson(json);
