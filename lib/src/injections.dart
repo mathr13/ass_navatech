@@ -27,4 +27,8 @@ Future<void> injections() async {
     () => NVHomeBloc(getAlbums: GetAlbumsUseCase(repository: injector()))
   );
 
+  injector.registerLazySingleton<NVPhotosBloc>(
+    () => NVPhotosBloc(getPhotos: GetPhotosUseCase(repository: injector()))
+  );
+
 }

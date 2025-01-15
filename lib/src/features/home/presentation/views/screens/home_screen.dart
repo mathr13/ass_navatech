@@ -74,17 +74,20 @@ class _Success extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Center(
+      child: BlocProvider<NVPhotosBloc>(
+        create: (context) => injector(),
         child: ListView.builder(
           itemBuilder: (context, index) {
             final album = albums[index%albums.length];
-            injector<NVHomeBloc>().add(NVGetPhotos(albumId: album.id));
-            return NVAlbumWidget(
-              album: album,
-              photos: [],
+            injector<NVPhotosBloc>().add(NVGetPhotos(albumId: album.id));
+            return BlocBuilder<NVPhotosBloc, NVPhotoStates>(
+              builder: (context, state) => NVAlbumWidget(
+                album: album,
+                photos: state
+              ),
             );
           },
-        )
+        ),
       ),
     );
   }

@@ -13,13 +13,13 @@ class HomeRemoteDataSource implements HomeDataSourceInterface {
 
   @override
   Future<NVAlbumsListModel> getAlbums() async {
-    final uri = Uri(
-      scheme: NVEndpoints.scheme,
-      host: Uri.parse(NVEndpoints.baseUrl).host,
-      path: NVEndpoints.getAlbums
-    );
-    final response = await dio.get(uri.toString());
     try {
+      final uri = Uri(
+        scheme: NVEndpoints.scheme,
+        host: Uri.parse(NVEndpoints.baseUrl).host,
+        path: NVEndpoints.getAlbums
+      );
+      final response = await dio.get(uri.toString());
       return NVAlbumsListModel(
         albumsList: (response.data as List).map(
           (e) => NVAlbumModel.fromJson(e)
@@ -32,14 +32,14 @@ class HomeRemoteDataSource implements HomeDataSourceInterface {
 
   @override
   Future<NVPhotosListModel> getPhotos(int id) async {
-    final uri = Uri(
-      scheme: NVEndpoints.scheme,
-      host: Uri.parse(NVEndpoints.baseUrl).host,
-      path: NVEndpoints.getPhotos,
-      queryParameters: {"albumId": id}
-    );
-    final response = await dio.get(uri.toString());
     try {
+      final uri = Uri(
+        scheme: NVEndpoints.scheme,
+        host: Uri.parse(NVEndpoints.baseUrl).host,
+        path: NVEndpoints.getPhotos,
+        queryParameters: {"albumId": id.toString()}
+      );
+      final response = await dio.get(uri.toString());
       return NVPhotosListModel(
         photosList: (response.data as List).map(
           (e) => NVPhotoModel.fromJson(e)
