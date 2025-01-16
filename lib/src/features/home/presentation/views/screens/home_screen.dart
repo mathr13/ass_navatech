@@ -2,6 +2,7 @@ import 'package:ass_navatech/src/features/home/domain/domain.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../../../injections.dart';
 import '../../bloc/bloc.dart';
@@ -79,11 +80,17 @@ class _Success extends StatelessWidget {
         child: ListView.builder(
           itemBuilder: (context, index) {
             final album = albums[index%albums.length];
-            injector<NVPhotosBloc>().add(NVGetPhotos(albumId: album.id));
             return BlocBuilder<NVPhotosBloc, NVPhotoStates>(
-              builder: (context, state) => NVAlbumWidget(
-                album: album,
-                photos: state
+              builder: (context, state) => VisibilityDetector(
+                key: ValueKey(index),
+                onVisibilityChanged: (info) {
+                  if(info.visibleFraction != 1) return;
+                  injector<NVPhotosBloc>().add(NVGetPhotos(albumId: album.id));
+                },
+                child: NVAlbumWidget(
+                  album: album,
+                  photos: state
+                ),
               ),
             );
           },

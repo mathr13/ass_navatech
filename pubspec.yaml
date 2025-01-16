@@ -39,6 +39,7 @@ dependencies:
   flutter_bloc:
   get_it:
   cached_network_image:
+  visibility_detector:
 
 
   # The following adds the Cupertino Icons font to your application.

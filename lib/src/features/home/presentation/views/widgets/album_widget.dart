@@ -20,7 +20,7 @@ class NVAlbumWidget extends StatelessWidget {
         const SizedBox(height: 20),
         _Photos(state: photos),
         const SizedBox(height: 20),
-        const Divider(),
+        const Divider()
       ],
     );
   }
@@ -83,15 +83,18 @@ class _Success extends StatelessWidget {
       height: _imageSize,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => Text((index%photos.length).toString()),
-        // itemBuilder: (context, index) => CachedNetworkImage(
-        //   progressIndicatorBuilder: (__, $, _) => const SizedBox(),
-        //   imageUrl: photos[index%photos.length].url,
-        //   errorWidget: (__, $, _) => const Icon(
-        //     Icons.hide_image_outlined,
-        //     size: 24,
-        //   ),
-        // ),
+        itemBuilder: (context, index) => SizedBox(
+          height: 80,
+          width: 80,
+          child: CachedNetworkImage(
+            progressIndicatorBuilder: (__, $, _) => const CircularProgressIndicator(),
+            imageUrl: photos[index%photos.length].url,
+            errorWidget: (__, $, _) => const Icon(
+              Icons.hide_image_outlined,
+              size: 24,
+            ),
+          ),
+        ),
       ),
     );
   }
